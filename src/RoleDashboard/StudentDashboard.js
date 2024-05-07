@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './studentdashboard.css'; // Import the CSS file
+import '../CssFiles/studentdashboard.css'; // Import the CSS file
+import HeaderBar from '../Utilities/HeadBar'; // Import the HeaderBar component
 
 // Sidebar Component
 function Sidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout }) {
@@ -14,18 +15,6 @@ function Sidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout }) {
         <button>Settings</button>
         <button onClick={handleLogout}>Logout</button> {/* Logout button */}
       </div>
-    </div>
-  );
-}
-
-// HeaderBar Component
-function HeaderBar({ showSidebar, toggleSidebar }) {
-  return (
-    <div className="header">
-      <h1>LNHS - MIS</h1>
-      <button className="toggle-btn" onClick={toggleSidebar}>
-        {showSidebar ? 'Hide Sidebar' : 'Show Sidebar'}
-      </button>
     </div>
   );
 }

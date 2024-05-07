@@ -1,0 +1,68 @@
+/*studentdashboard.css*/
+
+.sidebar {
+  background-color: #f4f4f4;
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: -200px; /* Initially hide the sidebar */
+  padding-top: 20px;
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.show {
+  left: 0; /* Move the sidebar into view */
+}
+
+.sidebar .buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar button {
+  padding: 10px 20px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #ddd;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between; /* Add space between items */
+  align-items: center; /* Center items vertically */
+}
+
+.header h1 {
+  margin: 0;
+  text-align: center;
+  flex-grow: 1; /* Allow the header to grow and center the h1 */
+}
+
+.toggle-btn {
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.toggle-btn:hover {
+  text-decoration: underline;
+}
+
+.content {
+  margin-left: 200px;
+  padding: 20px;
+}
