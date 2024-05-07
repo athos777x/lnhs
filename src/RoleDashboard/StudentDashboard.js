@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './studentdashboard.css'; // Import the CSS file
 
-function Sidebar({ showSidebar, toggleSidebar, showInfo, setShowInfo, handleLogout }) {
+// Sidebar Component
+function Sidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout }) {
   return (
     <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
       <div className="buttons">
@@ -17,6 +18,7 @@ function Sidebar({ showSidebar, toggleSidebar, showInfo, setShowInfo, handleLogo
   );
 }
 
+// HeaderBar Component
 function HeaderBar({ showSidebar, toggleSidebar }) {
   return (
     <div className="header">
@@ -28,6 +30,7 @@ function HeaderBar({ showSidebar, toggleSidebar }) {
   );
 }
 
+// StudentDashboard Component
 function StudentDashboard() {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showInfo, setShowInfo] = useState(false);
@@ -74,52 +77,57 @@ function StudentDashboard() {
     setEditMode(false); // Exit edit mode after saving
   };
 
+  const renderInfo = () => {
+    return (
+      <div>
+        <h3>{editMode ? 'Edit Information' : 'My Information'}</h3>
+        {editMode ? renderEditForm() : renderInfoDetails()}
+      </div>
+    );
+  };
+
+  const renderEditForm = () => {
+    return (
+      <div>
+        {/* Input fields for editing */}
+        {Object.keys(studentProfile).map((key) => (
+          <div key={key}>
+            <label>{key}: </label>
+            <input type="text" name={key} value={studentProfile[key]} onChange={handleInputChange} />
+          </div>
+        ))}
+        <button onClick={handleSave}>Save</button>
+      </div>
+    );
+  };
+
+  const renderInfoDetails = () => {
+    return (
+      <div>
+        {/* Display student information */}
+        {Object.keys(studentProfile).map((key) => (
+          <p key={key}>
+            <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {studentProfile[key]}
+          </p>
+        ))}
+        <button onClick={toggleEditMode}>Edit Information</button>
+      </div>
+    );
+  };
+
   return (
     <div>
       <HeaderBar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
-      <Sidebar 
-        showSidebar={showSidebar} 
-        toggleSidebar={toggleSidebar} 
-        showInfo={showInfo} 
-        setShowInfo={setShowInfo} 
-        handleLogout={handleLogout} 
+      <Sidebar
+        showSidebar={showSidebar}
+        toggleSidebar={toggleSidebar}
+        setShowInfo={setShowInfo}
+        handleLogout={handleLogout}
       />
       <div className="content">
         <h1>Welcome, {studentProfile.name}!</h1>
         <h2>Dashboard</h2>
-        {showInfo && (
-          <div>
-            <h3>{editMode ? 'Edit Information' : 'My Information'}</h3> {/* Change heading based on editMode */}
-            {/* Conditionally render input fields if in edit mode */}
-            {editMode ? (
-              <div>
-                <label>Name: </label>
-                <input type="text" name="name" value={studentProfile.name} onChange={handleInputChange} /><br />
-                <label>Grade Level: </label>
-                <input type="text" name="gradeLevel" value={studentProfile.gradeLevel} onChange={handleInputChange} /><br />
-                <label>LRN/Student ID: </label>
-                <input type="text" name="studentId" value={studentProfile.studentId} onChange={handleInputChange} /><br />
-                <label>Contact Number: </label>
-                <input type="text" name="contactNumber" value={studentProfile.contactNumber} onChange={handleInputChange} /><br />
-                <label>Email: </label>
-                <input type="text" name="email" value={studentProfile.email} onChange={handleInputChange} /><br />
-                <label>Address: </label>
-                <input type="text" name="address" value={studentProfile.address} onChange={handleInputChange} /><br />
-                <button onClick={handleSave}>Save</button> {/* Save button */}
-              </div>
-            ) : (
-              <div>
-                <p><strong>Name:</strong> {studentProfile.name}</p>
-                <p><strong>Grade Level:</strong> {studentProfile.gradeLevel}</p>
-                <p><strong>LRN/Student ID:</strong> {studentProfile.studentId}</p>
-                <p><strong>Contact Number:</strong> {studentProfile.contactNumber}</p>
-                <p><strong>Email:</strong> {studentProfile.email}</p>
-                <p><strong>Address:</strong> {studentProfile.address}</p>
-                <button onClick={toggleEditMode}>Edit Information</button> {/* Edit Information button */}
-              </div>
-            )}
-          </div>
-        )}
+        {showInfo && renderInfo()}
       </div>
     </div>
   );
