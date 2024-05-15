@@ -15,3 +15,4 @@ function HeaderBar({ showSidebar, toggleSidebar }) {
 }
 
 export default HeaderBar;
+
