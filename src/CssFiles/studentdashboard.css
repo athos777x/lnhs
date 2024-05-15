@@ -1,68 +1,22 @@
-/*studentdashboard.css*/
+/* studentdashboard.css */
 
+/* Ensure sidebar doesn't cover the button */
 .sidebar {
-  background-color: #f4f4f4;
-  height: 100%;
-  width: 200px;
-  position: fixed;
+  position: absolute;
+  left: 0;
   top: 0;
-  left: -200px; /* Initially hide the sidebar */
-  padding-top: 20px;
-  transition: left 0.3s ease-in-out;
+  bottom: 0;
+  width: 200px;
+  padding-top: 50px; /* Adjust padding to account for button space */
+  background-color: #111;
+  z-index: 1; /* Ensure the sidebar is below the button */
+  transition: transform 0.3s ease;
 }
 
 .sidebar.show {
-  left: 0; /* Move the sidebar into view */
+  transform: translateX(0);
 }
 
-.sidebar .buttons {
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar button {
-  padding: 10px 20px;
-  text-align: left;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  transition: background-color 0.3s ease;
-}
-
-.sidebar button:hover {
-  background-color: #ddd;
-}
-
-.header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between; /* Add space between items */
-  align-items: center; /* Center items vertically */
-}
-
-.header h1 {
-  margin: 0;
-  text-align: center;
-  flex-grow: 1; /* Allow the header to grow and center the h1 */
-}
-
-.toggle-btn {
-  border: none;
-  background: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.toggle-btn:hover {
-  text-decoration: underline;
-}
-
-.content {
-  margin-left: 200px;
-  padding: 20px;
+.sidebar.hide {
+  transform: translateX(-200px); /* Adjust based on the width of your sidebar */
 }

@@ -1,122 +1,92 @@
-import React, { useState, useEffect } from 'react';
+// StudentDashboard.js
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../CssFiles/studentdashboard.css'; // Import the CSS file
-import HeaderBar from '../Utilities/HeadBar'; // Import the HeaderBar component
+import '../CssFiles/studentdashboard.css';
+import '../CssFiles/headbar.css';
+import HeaderBar from '../Utilities/HeadBar';
+import StudentSidebar from '../Utilities/StudentSideBar';
 
-// Sidebar Component
-function Sidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout }) {
-  return (
-    <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
-      <div className="buttons">
-        <button onClick={() => setShowInfo(false)}>Home</button>
-        <button onClick={() => setShowInfo(true)}>My Information</button>
-        <button>Academics</button>
-        <button>Enrollment</button>
-        <button>Settings</button>
-        <button onClick={handleLogout}>Logout</button> {/* Logout button */}
-      </div>
-    </div>
-  );
-}
-
-// StudentDashboard Component
 function StudentDashboard() {
   const [showSidebar, setShowSidebar] = useState(true);
-  const [showInfo, setShowInfo] = useState(false);
-  const [editMode, setEditMode] = useState(false); // State to control edit mode
-  const [studentProfile, setStudentProfile] = useState({
-    name: 'John Doe',
-    gradeLevel: 'Grade 10',
-    studentId: '1234567890',
-    contactNumber: '+63 912 345 6789',
-    email: 'johndoe@example.com',
-    address: '123, ABC Street, XYZ City, Philippines'
-  });
+  const [showProfile, setShowProfile] = useState(false);
+  const [showAcademicRecord, setShowAcademicRecord] = useState(false);
+  const [showEnrollment, setShowEnrollment] = useState(false);
+  const [showSection, setShowSection] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Load student information from localStorage on component mount
-    const storedStudentInfo = localStorage.getItem('studentInfo');
-    if (storedStudentInfo) {
-      setStudentProfile(JSON.parse(storedStudentInfo));
-    }
-  }, []);
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
-  };
-
   const handleLogout = () => {
-    // Perform logout actions, e.g., clearing local storage, etc.
-    navigate('/'); // Redirect to the login page
+    navigate('/');
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setStudentProfile({ ...studentProfile, [name]: value });
+  const handleShowProfile = () => {
+    setShowProfile(true);
+    setShowAcademicRecord(false);
+    setShowEnrollment(false);
+    setShowSection(false);
   };
 
-  const handleSave = () => {
-    // Save the updated student profile to localStorage
-    localStorage.setItem('studentInfo', JSON.stringify(studentProfile));
-    setEditMode(false); // Exit edit mode after saving
+  const handleShowAcademicRecord = () => {
+    setShowProfile(false);
+    setShowAcademicRecord(true);
+    setShowEnrollment(false);
+    setShowSection(false);
   };
 
-  const renderInfo = () => {
-    return (
-      <div>
-        <h3>{editMode ? 'Edit Information' : 'My Information'}</h3>
-        {editMode ? renderEditForm() : renderInfoDetails()}
-      </div>
-    );
+  const handleShowEnrollment = () => {
+    setShowProfile(false);
+    setShowAcademicRecord(false);
+    setShowEnrollment(true);
+    setShowSection(false);
   };
 
-  const renderEditForm = () => {
-    return (
-      <div>
-        {/* Input fields for editing */}
-        {Object.keys(studentProfile).map((key) => (
-          <div key={key}>
-            <label>{key}: </label>
-            <input type="text" name={key} value={studentProfile[key]} onChange={handleInputChange} />
-          </div>
-        ))}
-        <button onClick={handleSave}>Save</button>
-      </div>
-    );
-  };
-
-  const renderInfoDetails = () => {
-    return (
-      <div>
-        {/* Display student information */}
-        {Object.keys(studentProfile).map((key) => (
-          <p key={key}>
-            <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong> {studentProfile[key]}
-          </p>
-        ))}
-        <button onClick={toggleEditMode}>Edit Information</button>
-      </div>
-    );
+  const handleShowSection = () => {
+    setShowProfile(false);
+    setShowAcademicRecord(false);
+    setShowEnrollment(false);
+    setShowSection(true);
   };
 
   return (
     <div>
       <HeaderBar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
-      <Sidebar
+      <StudentSidebar
         showSidebar={showSidebar}
         toggleSidebar={toggleSidebar}
-        setShowInfo={setShowInfo}
         handleLogout={handleLogout}
+        handleShowProfile={handleShowProfile}
+        handleShowAcademicRecord={handleShowAcademicRecord}
+        handleShowEnrollment={handleShowEnrollment}
+        handleShowSection={handleShowSection}
       />
-      <div className="content">
-        <h1>Welcome, {studentProfile.name}!</h1>
-        <h2>Dashboard</h2>
-        {showInfo && renderInfo()}
+      <div className={`content ${showSidebar ? 'content-shift' : ''}`}>
+        {showProfile && (
+          <div>
+            <h1>My Profile</h1>
+            {/* Add the content and functionality for the profile here */}
+          </div>
+        )}
+        {showAcademicRecord && (
+          <div>
+            <h1>Student Academic Record</h1>
+            {/* Add the content and functionality for academic record here */}
+          </div>
+        )}
+        {showEnrollment && (
+          <div>
+            <h1>Enrollment</h1>
+            {/* Add the content and functionality for enrollment here */}
+          </div>
+        )}
+        {showSection && (
+          <div>
+            <h1>Section</h1>
+            {/* Add the content and functionality for section here */}
+          </div>
+        )}
       </div>
     </div>
   );

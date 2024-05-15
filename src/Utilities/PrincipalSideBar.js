@@ -1,33 +1,33 @@
-//PrincipalSideBar.js
+// PrincipalSideBar.js
 
 import React, { useState } from 'react';
 import '../CssFiles/principaldashboard.css';
 
-function PrincipalSidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout, handleShowStudents, handleShowHome, handleShowGrades, handleShowAttendance, handleShowEmployee, handleShowEnrollment, handleShowEnrolledStudents, handleShowSchoolYear, handleShowSection, handleShowSubjects }) {
+function PrincipalSidebar({ showSidebar, toggleSidebar, handleLogout, handleShowHome, handleShowStudents, handleShowGrades, handleShowAttendance, handleShowEmployee, handleShowEnrollment, handleShowSchoolYear, handleShowSection, handleShowEnrolledStudents, handleShowSubjects, handleShowGenerateReport }) {
   const [showRecordsSubMenu, setShowRecordsSubMenu] = useState(false);
   const [showEnrollmentSubMenu, setShowEnrollmentSubMenu] = useState(false);
-  const [showSubjectsSubMenu, setShowSubjectsSubMenu] = useState(false);
+  const [showReportSubMenu, setShowReportSubMenu] = useState(false);
 
   const toggleRecordsSubMenu = () => {
     setShowRecordsSubMenu(prevState => !prevState);
     setShowEnrollmentSubMenu(false);
-    setShowSubjectsSubMenu(false);
+    setShowReportSubMenu(false);
   };
 
   const toggleEnrollmentSubMenu = () => {
     setShowEnrollmentSubMenu(prevState => !prevState);
     setShowRecordsSubMenu(false);
-    setShowSubjectsSubMenu(false);
+    setShowReportSubMenu(false);
   };
 
-  const toggleSubjectsSubMenu = () => {
-    setShowSubjectsSubMenu(prevState => !prevState);
+  const toggleReportSubMenu = () => {
+    setShowReportSubMenu(prevState => !prevState);
     setShowRecordsSubMenu(false);
     setShowEnrollmentSubMenu(false);
   };
 
   return (
-    <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
+    <div className={`sidebar ${showSidebar ? 'show' : 'hide'}`}>
       <div className="buttons">
         <button onClick={handleShowHome}>Home</button>
         <button onClick={handleShowStudents}>Students</button>
@@ -51,16 +51,17 @@ function PrincipalSidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogou
             </div>
           )}
         </div>
+        <button onClick={handleShowSubjects}>Subjects</button>
         <div className="menu-with-submenu">
-          <button onClick={toggleSubjectsSubMenu}>Subjects</button> {/* Toggle Subjects submenu */}
-          {showSubjectsSubMenu && (
+          <button onClick={toggleReportSubMenu}>Generate Report</button>
+          {showReportSubMenu && (
             <div className="submenu">
-              <button>Subs</button>
+              <button onClick={() => handleShowGenerateReport('enrollees')}>--List of student enrollees</button>
+              <button onClick={() => handleShowGenerateReport('earlyEnrollment')}>--Early Enrollment Report</button>
+              <button onClick={() => handleShowGenerateReport('summaryPromotion')}>--Summary Report on Promotion</button>
             </div>
           )}
         </div>
-        <button>Generate Report</button>
-        <button>Settings</button>
         <button onClick={handleLogout}>Logout</button>
       </div>
     </div>

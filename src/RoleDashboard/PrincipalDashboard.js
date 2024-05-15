@@ -1,8 +1,8 @@
-//PrincipalDashboard.js
-
+// PrincipalDashboard.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CssFiles/principaldashboard.css';
+import '../CssFiles/headbar.css';
 import HeaderBar from '../Utilities/HeadBar';
 import SearchFilter from '../Utilities/SearchFilter';
 import PrincipalSidebar from '../Utilities/PrincipalSideBar';
@@ -20,10 +20,12 @@ function PrincipalDashboard() {
   const [showSectionFilters, setShowSectionFilters] = useState(false);
   const [showSchoolYearFilter, setShowSchoolYearFilter] = useState(false);
   const [showGradeLevelFilter, setShowGradeLevelFilter] = useState(false);
+  const [showEnrolledStudents, setShowEnrolledStudents] = useState(false);
+  const [showSubjects, setShowSubjects] = useState(false); // New state
   const [schoolYearFormData, setSchoolYearFormData] = useState({
     startYear: '',
     endYear: '',
-  }); // Define schoolYearFormData and setSchoolYearFormData
+  });
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -43,7 +45,9 @@ function PrincipalDashboard() {
     setShowEnrollmentButtons(false);
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
-    setShowSectionFilters(false); // Hide section filters when clicking another button
+    setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowGrades = () => {
@@ -56,6 +60,8 @@ function PrincipalDashboard() {
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowAttendance = () => {
@@ -68,6 +74,8 @@ function PrincipalDashboard() {
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowEmployee = () => {
@@ -80,6 +88,8 @@ function PrincipalDashboard() {
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowHome = () => {
@@ -92,6 +102,8 @@ function PrincipalDashboard() {
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowEnrollment = () => {
@@ -104,10 +116,12 @@ function PrincipalDashboard() {
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowSchoolYear = () => {
-    setShowSchoolYearOptions(true); // Always show school year options
+    setShowSchoolYearOptions(true);
     setShowInfo(false);
     setShowStudents(false);
     setShowGradesSearch(false);
@@ -116,6 +130,8 @@ function PrincipalDashboard() {
     setShowEnrollmentButtons(false);
     setShowAddNewSchoolYearForm(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleShowAddNewSchoolYearForm = () => {
@@ -128,11 +144,12 @@ function PrincipalDashboard() {
     setShowEnrollmentButtons(false);
     setShowSchoolYearOptions(false);
     setShowSectionFilters(false);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleSaveSchoolYear = () => {
     console.log('Save school year:', schoolYearFormData);
-    // Implement logic to save school year data
     setShowAddNewSchoolYearForm(false);
     setSchoolYearFormData({
       startYear: '',
@@ -169,7 +186,7 @@ function PrincipalDashboard() {
   };
 
   const handleShowSection = () => {
-    setShowSectionFilters(true); // Always show section filters
+    setShowSectionFilters(true);
     setShowInfo(false);
     setShowStudents(false);
     setShowGradesSearch(false);
@@ -178,14 +195,8 @@ function PrincipalDashboard() {
     setShowEnrollmentButtons(false);
     setShowSchoolYearOptions(false);
     setShowAddNewSchoolYearForm(false);
-  };
-
-  const handleToggleSchoolYearFilter = () => {
-    setShowSchoolYearFilter(!showSchoolYearFilter);
-  };
-
-  const handleToggleGradeLevelFilter = () => {
-    setShowGradeLevelFilter(!showGradeLevelFilter);
+    setShowEnrolledStudents(false);
+    setShowSubjects(false); // Reset other sections
   };
 
   const handleCloseSectionFilters = () => {
@@ -195,7 +206,35 @@ function PrincipalDashboard() {
   };
 
   const handleApplySectionFilters = () => {
-    // Logic to apply section filters
+    console.log('Apply section filters');
+  };
+
+  const handleShowEnrolledStudents = () => {
+    setShowEnrolledStudents(true);
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
+    setShowSubjects(false); // Reset other sections
+  };
+
+  const handleShowSubjects = () => { // New handler
+    setShowSubjects(true);
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
+    setShowEnrolledStudents(false); // Reset other sections
   };
 
   return (
@@ -214,8 +253,10 @@ function PrincipalDashboard() {
         handleShowEnrollment={handleShowEnrollment}
         handleShowSchoolYear={handleShowSchoolYear}
         handleShowSection={handleShowSection}
+        handleShowEnrolledStudents={handleShowEnrolledStudents}
+        handleShowSubjects={handleShowSubjects} // Pass the new handler
       />
-      <div className="content">
+      <div className={`content ${showSidebar ? 'content-shift' : ''}`}>
         {showInfo && (
           <div>
             <h1>Welcome, Principal!</h1>
@@ -225,44 +266,25 @@ function PrincipalDashboard() {
         {showStudents && (
           <div>
             <h1>Search Student</h1>
-            <SearchFilter
-              handleSearch={handleSearch}
-              handleFilter={handleFilter}
-            />
+            <SearchFilter handleSearch={handleSearch} handleFilter={handleFilter} />
           </div>
         )}
         {showGradesSearch && (
           <div>
             <h1>Grades - Search Student</h1>
-            <SearchFilter
-              handleSearch={handleSearch}
-              handleFilter={handleFilter}
-              showSchoolYearFilter={true}
-              showGradeLevelFilter={true}
-              showSectionFilter={true}
-            />
+            <SearchFilter handleSearch={handleSearch} handleFilter={handleFilter} showSchoolYearFilter={true} showGradeLevelFilter={true} showSectionFilter={true} />
           </div>
         )}
         {showAttendance && (
           <div>
             <h1>Attendance - Search Student</h1>
-            <SearchFilter
-              handleSearch={handleSearch}
-              handleFilter={handleFilter}
-              showGradeLevelFilter={true}
-              showSectionFilter={true}
-            />
+            <SearchFilter handleSearch={handleSearch} handleFilter={handleFilter} showGradeLevelFilter={true} showSectionFilter={true} />
           </div>
         )}
         {showEmployee && (
           <div>
             <h1>Employee Management</h1>
-            <SearchFilter
-              handleSearch={handleSearch}
-              handleFilter={handleFilter}
-              showSchoolYearFilter={true}
-              showRoleFilter={true}
-            />
+            <SearchFilter handleSearch={handleSearch} handleFilter={handleFilter} showSchoolYearFilter={true} showRoleFilter={true} />
             <button onClick={handleAddEmployee}>Add Employee</button>
           </div>
         )}
@@ -270,7 +292,7 @@ function PrincipalDashboard() {
           <div>
             <button onClick={handleShowSchoolYear}>School Year</button>
             <button onClick={handleShowSection}>Section</button>
-            <button onClick={handleToggleGradeLevelFilter}>Enrolled Students</button>
+            <button onClick={handleShowEnrolledStudents}>Enrolled Students</button>
           </div>
         )}
         {showSchoolYearOptions && (
@@ -307,6 +329,19 @@ function PrincipalDashboard() {
               showSectionFilter={true}
             />
             <button onClick={handleCloseSectionFilters}>Close</button>
+          </div>
+        )}
+        {showEnrolledStudents && (
+          <div>
+            <h1>Enrolled Students</h1>
+            <SearchFilter handleSearch={handleSearch} handleFilter={handleFilter} showGradeLevelFilter={true} />
+          </div>
+        )}
+        {showSubjects && ( // Add new section for subjects
+          <div>
+            <h1>Subjects</h1>
+            <button>Add Subject</button>
+            <SearchFilter handleSearch={handleSearch} handleFilter={handleFilter} showSchoolYearFilter={true} showGradeLevelFilter={true} />
           </div>
         )}
       </div>

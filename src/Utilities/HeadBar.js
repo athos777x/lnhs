@@ -1,12 +1,14 @@
+// HeadBar.js
 import React from 'react';
+import '../CssFiles/headbar.css'; // Ensure this path is correct
 
 function HeaderBar({ showSidebar, toggleSidebar }) {
   return (
     <div className="header">
-      <h1>LNHS - MIS</h1>
       <button className="toggle-btn" onClick={toggleSidebar}>
         {showSidebar ? 'Hide Sidebar' : 'Show Sidebar'}
       </button>
+      <h1>LNHS - MIS</h1>
     </div>
   );
 }
