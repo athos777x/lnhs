@@ -2,6 +2,7 @@
 import React from 'react';
 import '../CssFiles/headbar.css'; // Ensure this path is correct
 
+
 function HeaderBar({ showSidebar, toggleSidebar }) {
   return (
     <div className="header">
