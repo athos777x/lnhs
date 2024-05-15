@@ -1,3 +1,5 @@
+//PrincipalDashboard.js
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CssFiles/principaldashboard.css';
@@ -11,7 +13,17 @@ function PrincipalDashboard() {
   const [showStudents, setShowStudents] = useState(false);
   const [showGradesSearch, setShowGradesSearch] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
-  const [showEmployee, setShowEmployee] = useState(false); // State to control Employee view
+  const [showEmployee, setShowEmployee] = useState(false);
+  const [showEnrollmentButtons, setShowEnrollmentButtons] = useState(false);
+  const [showSchoolYearOptions, setShowSchoolYearOptions] = useState(false);
+  const [showAddNewSchoolYearForm, setShowAddNewSchoolYearForm] = useState(false);
+  const [showSectionFilters, setShowSectionFilters] = useState(false);
+  const [showSchoolYearFilter, setShowSchoolYearFilter] = useState(false);
+  const [showGradeLevelFilter, setShowGradeLevelFilter] = useState(false);
+  const [schoolYearFormData, setSchoolYearFormData] = useState({
+    startYear: '',
+    endYear: '',
+  }); // Define schoolYearFormData and setSchoolYearFormData
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -28,6 +40,10 @@ function PrincipalDashboard() {
     setShowGradesSearch(false);
     setShowAttendance(false);
     setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false); // Hide section filters when clicking another button
   };
 
   const handleShowGrades = () => {
@@ -36,6 +52,10 @@ function PrincipalDashboard() {
     setShowGradesSearch(true);
     setShowAttendance(false);
     setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
   };
 
   const handleShowAttendance = () => {
@@ -44,6 +64,10 @@ function PrincipalDashboard() {
     setShowGradesSearch(false);
     setShowAttendance(true);
     setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
   };
 
   const handleShowEmployee = () => {
@@ -52,6 +76,10 @@ function PrincipalDashboard() {
     setShowGradesSearch(false);
     setShowAttendance(false);
     setShowEmployee(true);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
   };
 
   const handleShowHome = () => {
@@ -60,26 +88,119 @@ function PrincipalDashboard() {
     setShowAttendance(false);
     setShowEmployee(false);
     setShowInfo(true);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
+  };
+
+  const handleShowEnrollment = () => {
+    setShowEnrollmentButtons(true);
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
+  };
+
+  const handleShowSchoolYear = () => {
+    setShowSchoolYearOptions(true); // Always show school year options
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowAddNewSchoolYearForm(false);
+    setShowSectionFilters(false);
+  };
+
+  const handleShowAddNewSchoolYearForm = () => {
+    setShowAddNewSchoolYearForm(true);
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowSectionFilters(false);
+  };
+
+  const handleSaveSchoolYear = () => {
+    console.log('Save school year:', schoolYearFormData);
+    // Implement logic to save school year data
+    setShowAddNewSchoolYearForm(false);
+    setSchoolYearFormData({
+      startYear: '',
+      endYear: '',
+    });
+  };
+
+  const handleCancelAddNewSchoolYear = () => {
+    setShowAddNewSchoolYearForm(false);
+    setSchoolYearFormData({
+      startYear: '',
+      endYear: '',
+    });
   };
 
   const handleSearch = (searchQuery) => {
     console.log('Searching for:', searchQuery);
   };
 
-  const handleFilter = (filterOptions) => {
-    console.log('Filtering with options:', filterOptions);
+  const handleFilter = (filterType, filterValue) => {
+    console.log('Filtering:', filterType, 'with value:', filterValue);
   };
 
   const handleAddEmployee = () => {
     console.log('Add employee functionality goes here');
-    // You can add the functionality to add an employee here
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setSchoolYearFormData({
+      ...schoolYearFormData,
+      [name]: value,
+    });
+  };
+
+  const handleShowSection = () => {
+    setShowSectionFilters(true); // Always show section filters
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(false);
+    setShowEnrollmentButtons(false);
+    setShowSchoolYearOptions(false);
+    setShowAddNewSchoolYearForm(false);
+  };
+
+  const handleToggleSchoolYearFilter = () => {
+    setShowSchoolYearFilter(!showSchoolYearFilter);
+  };
+
+  const handleToggleGradeLevelFilter = () => {
+    setShowGradeLevelFilter(!showGradeLevelFilter);
+  };
+
+  const handleCloseSectionFilters = () => {
+    setShowSectionFilters(false);
+    setShowSchoolYearFilter(false);
+    setShowGradeLevelFilter(false);
+  };
+
+  const handleApplySectionFilters = () => {
+    // Logic to apply section filters
   };
 
   return (
     <div>
-      {/* HeaderBar component */}
       <HeaderBar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
-      {/* PrincipalSidebar component */}
       <PrincipalSidebar
         showSidebar={showSidebar}
         toggleSidebar={toggleSidebar}
@@ -89,17 +210,18 @@ function PrincipalDashboard() {
         handleShowHome={handleShowHome}
         handleShowGrades={handleShowGrades}
         handleShowAttendance={handleShowAttendance}
-        handleShowEmployee={handleShowEmployee} // Add handleShowEmployee function
+        handleShowEmployee={handleShowEmployee}
+        handleShowEnrollment={handleShowEnrollment}
+        handleShowSchoolYear={handleShowSchoolYear}
+        handleShowSection={handleShowSection}
       />
       <div className="content">
-        {/* Display welcome message only if showInfo is true */}
         {showInfo && (
           <div>
             <h1>Welcome, Principal!</h1>
             <h2>Dashboard</h2>
           </div>
         )}
-        {/* Display student search component if showStudents is true */}
         {showStudents && (
           <div>
             <h1>Search Student</h1>
@@ -109,7 +231,6 @@ function PrincipalDashboard() {
             />
           </div>
         )}
-        {/* Display grades search component if showGradesSearch is true */}
         {showGradesSearch && (
           <div>
             <h1>Grades - Search Student</h1>
@@ -122,7 +243,6 @@ function PrincipalDashboard() {
             />
           </div>
         )}
-        {/* Display attendance search component if showAttendance is true */}
         {showAttendance && (
           <div>
             <h1>Attendance - Search Student</h1>
@@ -134,7 +254,6 @@ function PrincipalDashboard() {
             />
           </div>
         )}
-        {/* Display Employee view if showEmployee is true */}
         {showEmployee && (
           <div>
             <h1>Employee Management</h1>
@@ -142,9 +261,52 @@ function PrincipalDashboard() {
               handleSearch={handleSearch}
               handleFilter={handleFilter}
               showSchoolYearFilter={true}
-              showRoleFilter={true} // Add role filter
+              showRoleFilter={true}
             />
-            <button onClick={handleAddEmployee}>Add Employee</button> {/* Add button */}
+            <button onClick={handleAddEmployee}>Add Employee</button>
+          </div>
+        )}
+        {showEnrollmentButtons && (
+          <div>
+            <button onClick={handleShowSchoolYear}>School Year</button>
+            <button onClick={handleShowSection}>Section</button>
+            <button onClick={handleToggleGradeLevelFilter}>Enrolled Students</button>
+          </div>
+        )}
+        {showSchoolYearOptions && (
+          <div>
+            <button onClick={handleShowAddNewSchoolYearForm}>Add New School Year</button>
+            <select>
+              <option>2021-2022</option>
+              <option>2022-2023</option>
+              <option>2023-2024</option>
+            </select>
+            <button>Edit</button>
+          </div>
+        )}
+        {showAddNewSchoolYearForm && (
+          <div>
+            <h2>Add New School Year</h2>
+            <label htmlFor="startYear">Start Year:</label>
+            <input type="text" id="startYear" name="startYear" value={schoolYearFormData.startYear} onChange={handleInputChange} />
+            <label htmlFor="endYear">End Year:</label>
+            <input type="text" id="endYear" name="endYear" value={schoolYearFormData.endYear} onChange={handleInputChange} />
+            <button onClick={handleSaveSchoolYear}>Save</button>
+            <button onClick={handleCancelAddNewSchoolYear}>Cancel</button>
+          </div>
+        )}
+        {showSectionFilters && (
+          <div>
+            <h1>Section - Search Section</h1>
+            <SearchFilter
+              handleSearch={handleSearch}
+              handleFilter={handleFilter}
+              handleApplyFilters={handleApplySectionFilters}
+              showSchoolYearFilter={showSchoolYearFilter}
+              showGradeLevelFilter={showGradeLevelFilter}
+              showSectionFilter={true}
+            />
+            <button onClick={handleCloseSectionFilters}>Close</button>
           </div>
         )}
       </div>
