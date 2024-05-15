@@ -11,6 +11,7 @@ function PrincipalDashboard() {
   const [showStudents, setShowStudents] = useState(false);
   const [showGradesSearch, setShowGradesSearch] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
+  const [showEmployee, setShowEmployee] = useState(false); // State to control Employee view
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -26,26 +27,38 @@ function PrincipalDashboard() {
     setShowStudents(true);
     setShowGradesSearch(false);
     setShowAttendance(false);
+    setShowEmployee(false);
   };
 
   const handleShowGrades = () => {
     setShowInfo(false);
     setShowStudents(false);
-    setShowGradesSearch(true); // Show grades search view
+    setShowGradesSearch(true);
     setShowAttendance(false);
+    setShowEmployee(false);
   };
 
   const handleShowAttendance = () => {
     setShowInfo(false);
     setShowStudents(false);
     setShowGradesSearch(false);
-    setShowAttendance(true); // Show attendance view
+    setShowAttendance(true);
+    setShowEmployee(false);
+  };
+
+  const handleShowEmployee = () => {
+    setShowInfo(false);
+    setShowStudents(false);
+    setShowGradesSearch(false);
+    setShowAttendance(false);
+    setShowEmployee(true);
   };
 
   const handleShowHome = () => {
     setShowStudents(false);
     setShowGradesSearch(false);
     setShowAttendance(false);
+    setShowEmployee(false);
     setShowInfo(true);
   };
 
@@ -55,6 +68,11 @@ function PrincipalDashboard() {
 
   const handleFilter = (filterOptions) => {
     console.log('Filtering with options:', filterOptions);
+  };
+
+  const handleAddEmployee = () => {
+    console.log('Add employee functionality goes here');
+    // You can add the functionality to add an employee here
   };
 
   return (
@@ -69,8 +87,9 @@ function PrincipalDashboard() {
         handleLogout={handleLogout}
         handleShowStudents={handleShowStudents}
         handleShowHome={handleShowHome}
-        handleShowGrades={handleShowGrades} // Here, bind handleShowGrades
+        handleShowGrades={handleShowGrades}
         handleShowAttendance={handleShowAttendance}
+        handleShowEmployee={handleShowEmployee} // Add handleShowEmployee function
       />
       <div className="content">
         {/* Display welcome message only if showInfo is true */}
@@ -115,11 +134,22 @@ function PrincipalDashboard() {
             />
           </div>
         )}
+        {/* Display Employee view if showEmployee is true */}
+        {showEmployee && (
+          <div>
+            <h1>Employee Management</h1>
+            <SearchFilter
+              handleSearch={handleSearch}
+              handleFilter={handleFilter}
+              showSchoolYearFilter={true}
+              showRoleFilter={true} // Add role filter
+            />
+            <button onClick={handleAddEmployee}>Add Employee</button> {/* Add button */}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
-
 
 export default PrincipalDashboard;

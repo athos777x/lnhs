@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../CssFiles/principaldashboard.css';
 
 // PrincipalSidebar Component
-function PrincipalSidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout, handleShowStudents, handleShowHome, handleShowGrades, handleShowAttendance }) {
+function PrincipalSidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogout, handleShowStudents, handleShowHome, handleShowGrades, handleShowAttendance, handleShowEmployee }) {
   const [showSubMenu, setShowSubMenu] = useState(false); // State to control showing the sub-menu
 
   const toggleSubMenu = () => {
@@ -23,7 +23,7 @@ function PrincipalSidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogou
             </div>
           )}
         </div>
-        <button>Employee</button>
+        <button onClick={handleShowEmployee}>Employee</button> {/* Add onClick handler for Employee */}
         <button>Enrollment</button>
         <button>Subjects</button>
         <button>Sections</button>
@@ -36,5 +36,3 @@ function PrincipalSidebar({ showSidebar, toggleSidebar, setShowInfo, handleLogou
 }
 
 export default PrincipalSidebar;
-
-

@@ -1,5 +1,6 @@
-/*studentdashboard.css*/
+/* principaldashboard.css */
 
+/* Sidebar styles */
 .sidebar {
   background-color: #f4f4f4;
   height: 100%;
@@ -35,6 +36,7 @@
   background-color: #ddd;
 }
 
+/* Header styles */
 .header {
   background-color: #333;
   color: #fff;
@@ -62,7 +64,25 @@
   text-decoration: underline;
 }
 
+/* Content styles */
 .content {
-  margin-left: 200px;
+  margin-left: 200px; /* Adjust margin to accommodate sidebar */
   padding: 20px;
 }
+
+/* Add Employee button style */
+.content button {
+  margin-top: 10px; /* Adjust top margin */
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.content button:hover {
+  background-color: #0056b3;
+}
+
+/* Add any additional styles specific to PrincipalDashboard component below */
